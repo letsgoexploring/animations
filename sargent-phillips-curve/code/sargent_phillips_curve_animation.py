@@ -82,6 +82,17 @@ def update_plot(i):
     return scatter, text
 
 
+# In[ ]:
+
+
+# Make directories for output if they don't exist
+if not os.path.isdir('../video'):
+    os.mkdir('../video')
+
+if not os.path.isdir('../image'):
+    os.mkdir('../image')
+
+
 # In[5]:
 
 

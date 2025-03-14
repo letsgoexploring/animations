@@ -10,6 +10,10 @@ import subprocess
 
 plt.style.use('classic')
 
+# Make directories for output if they don't exist
+if not os.path.isdir('../video'):
+    os.mkdir('../video')
+
 # Parameters for animation
 aL=4
 cH=0.25

@@ -3,5 +3,6 @@
 *.mov
 *.mp4
 *.gif
+*.ogv
 .DS_Store
 .ipynb_checkpoints

@@ -24,37 +24,37 @@ p = 0.25
 aBar = p*aH+(1-p)*aL
 
 eMin = 0
-eMax = 19
+eMax = 34
 eStep = 0.05
 # eStep=0.05
 
-eRange = np.arange(eMin-eStep,eMax+eStep-0.0001,eStep)
+eRange = np.arange(eMin-eStep,eMax+eStep,eStep)
 
 #High type
 eHstar = aL/2/cH
 uHstar = aL*eHstar-cH*eHstar**2
 
-coeffsH = [-cH,aBar,-uHstar]
+coeffsH = [-cH,aH,-uHstar]
 eHmax = np.max(np.roots(coeffsH))
 
 costH = cH*eRange**2
 uLowH = aL*eRange-costH
-uHighH= aBar*eRange-costH
+uHighH= aH*eRange-costH
 
-yMinH,yMaxH = -10,27
+yMinH,yMaxH = -10,65
 
 #Low type
 eLstar = aL/2/cL
 uLstar = aL*eLstar-cL*eLstar**2
 
-coeffsL = [-cL,aBar,-uLstar]
+coeffsL = [-cL,aH,-uLstar]
 eLmax = np.max(np.roots(coeffsL))
 
 costL = cL*eRange**2
 uLowL = aL*eRange-costL
-uHighL= aBar*eRange-costL
+uHighL= aH*eRange-costL
 
-yMinL,yMaxL = -10,15
+yMinL,yMaxL = -10,33
 
 
 ##########################################
@@ -73,37 +73,11 @@ lineH1, = ax1.plot([], [],'k', lw=3)
 lineH2, = ax1.plot([], [],'k', lw=3)
 lineH3, = ax1.plot([], [],'ok', lw=4)
 lineH4, = ax1.plot([], [],'ok', lw=4,markerfacecolor='none')
+ax1.set_xlim(eMin, eMax)
 ax1.set_ylim(yMinH,yMaxH)
 ax1.set_ylabel('\n\n')
-ax1.legend(['$\\bar{m}e - c_H e^2$','$m_L e - c_H e^2$','$u_H(e)$'],ncol=1,fontsize=20,loc='center left', bbox_to_anchor=(1, 0.5))
+ax1.legend(['$m_He - c_H e^2$','$m_L e - c_H e^2$','$u_H(e)$'],ncol=1,fontsize=20,loc='center left', bbox_to_anchor=(1, 0.5))
 ax1.set_title('Type H Worker Utility ($u_H)$',fontsize=20,pad = 10)
-
-# Initialize the shaded rectangle
-leftH = 0
-rightH = 0
-bottomH = yMinH
-topH = bottomH - yMinH + yMaxH
-
-nverts = 5
-vertsH = np.zeros((nverts, 2))
-codesH = np.ones(nverts, int) * path.Path.LINETO
-codesH[0] = path.Path.MOVETO
-codesH[4] = path.Path.CLOSEPOLY
-vertsH[0,0] = leftH
-vertsH[0,1] = bottomH
-vertsH[1,0] = leftH
-vertsH[1,1] = topH
-vertsH[2,0] = rightH
-vertsH[2,1] = topH
-vertsH[3,0] = rightH
-vertsH[3,1] = bottomH
-
-rectPathH = path.Path(vertsH, codesH)
-patchH = patches.PathPatch(rectPathH, facecolor='red', edgecolor='red', alpha=0.5)
-ax1.add_patch(patchH)
-
-
-
 
 ax2 = fig.add_subplot(2, 1, 2)
 ax2.grid()
@@ -113,41 +87,63 @@ lineL1, = ax2.plot([], [],'k', lw=3)
 lineL2, = ax2.plot([], [],'k', lw=3)
 lineL3, = ax2.plot([], [],'ok', lw=4)
 lineL4, = ax2.plot([], [],'ok', lw=4,markerfacecolor='none')
+ax2.set_xlim(eMin, eMax)
 ax2.set_ylim(yMinL,yMaxL)
 ax2.set_xlabel('Level of education ($e$)')
 ax2.set_ylabel('\n\n')
-ax2.legend(['$\\bar{m}e - c_L e^2$','$m_L e - c_L e^2$','$u_L(e)$'],ncol=1,fontsize=20,loc='center left', bbox_to_anchor=(1, 0.5))
+ax2.legend(['$m_He - c_L e^2$','$m_L e - c_L e^2$','$u_L(e)$'],ncol=1,fontsize=20,loc='center left', bbox_to_anchor=(1, 0.5))
 ax2.set_title('Type L Worker Utility ($u_L)$',fontsize=20,pad = 10)
 
-
 # Initialize the shaded rectangle
-leftL = 0
-rightL = 0
-bottomL = yMinH
+left = 0
+right = 0
+
+bottomL = yMinL
 topL = bottomL - yMinL + yMaxL
+bottomH = yMinH
+topH = bottomH - yMinH + yMaxH
 
 nverts = 5
+
 vertsL = np.zeros((nverts, 2))
 codesL = np.ones(nverts, int) * path.Path.LINETO
 codesL[0] = path.Path.MOVETO
 codesL[4] = path.Path.CLOSEPOLY
-vertsL[0,0] = leftL
+vertsL[0,0] = left
 vertsL[0,1] = bottomL
-vertsL[1,0] = leftL
+vertsL[1,0] = left
 vertsL[1,1] = topL
-vertsL[2,0] = rightL
+vertsL[2,0] = right
 vertsL[2,1] = topL
-vertsL[3,0] = rightL
+vertsL[3,0] = right
 vertsL[3,1] = bottomL
 
+
+vertsH = np.zeros((nverts, 2))
+codesH = np.ones(nverts, int) * path.Path.LINETO
+codesH[0] = path.Path.MOVETO
+codesH[4] = path.Path.CLOSEPOLY
+vertsH[0,0] = left
+vertsH[0,1] = bottomH
+vertsH[1,0] = left
+vertsH[1,1] = topH
+vertsH[2,0] = right
+vertsH[2,1] = topH
+vertsH[3,0] = right
+vertsH[3,1] = bottomH
+
 rectPathL = path.Path(vertsL, codesL)
-patchL = patches.PathPatch(rectPathL, facecolor='green', edgecolor='green', alpha=0.5)
-ax2.add_patch(patchL)
+patch = patches.PathPatch(rectPathL, facecolor='green', edgecolor='green', alpha=0.5)
+ax2.add_patch(patch)
+
+rectPathH = path.Path(vertsH, codesH)
+patch = patches.PathPatch(rectPathH, facecolor='red', edgecolor='red', alpha=0.5)
+ax1.add_patch(patch)
 
 fig.tight_layout()
 fig.subplots_adjust(hspace=.25)
 
-#############
+##########################################
 z,n=10000,0
 def run(*args):
     global z,n
@@ -161,39 +157,30 @@ def run(*args):
             utilH.append(uLowH[m])
             utilL.append(uLowL[m])
         else:
-            utilH.append(aBar*e - costH[m])
-            utilL.append(aBar*e - costL[m])
+            utilH.append(uHighH[m])
+            utilL.append(uHighL[m])
     if e<e1:
         ax1.set_xticks([eRange[n]])
-        ax1.set_yticks([0,aBar*e - costH[n]])
+        ax1.set_yticks([0,aH*e - costH[n]])
         xlabelsH  = ['$\\bar{e}$'] #% np.round(eRange[n],1)
         ylabelsH  = ['','$u_H(\\bar{e})$'] #% np.round(eRange[n],1)
-
-        leftH = 0
-        rightH = e
-        vertsH[0,0] = leftH
-        vertsH[1,0] = leftH
-        vertsH[2,0] = rightH
-        vertsH[3,0] = rightH
-
     elif e1<=e<eHstar:
         ax1.set_xticks([eRange[n]])
-        ax1.set_yticks([0,aBar*e - costH[n]])
+        ax1.set_yticks([0,aH*e - costH[n]])
         xlabelsH  = ['$\\bar{e}$'] #% np.round(eRange[n],1)
         ylabelsH  = ['','$u_H(\\bar{e})$'] #% np.round(eRange[n],1)
-
-        leftH = 0
-        rightH = e
-        vertsH[0,0] = leftH
-        vertsH[1,0] = leftH
-        vertsH[2,0] = rightH
-        vertsH[3,0] = rightH
-
     elif eHstar<=e<eHmax:
         ax1.set_xticks([eHstar,eRange[n]])
-        ax1.set_yticks([0,uHstar,aBar*e - costH[n]])
+        ax1.set_yticks([0,uHstar,aH*e - costH[n]])
         xlabelsH  = ['$e_H^*$','$\\bar{e}$'] #% np.round(eRange[n],1)
         ylabelsH  = ['','$u_H(e_H^*)$','$u_H(\\bar{e})$'] #% np.round(eRange[n],1)
+    else:
+        ax1.set_xticks([eHstar,eHmax,eRange[n]])
+        ax1.set_yticks([0,uHstar,aH*e - costH[n]])
+        xlabelsH  = ['$e_H^*$','$\\bar{e}_{max}$','$\\bar{e}$'] #% np.round(eRange[n],1)
+        ylabelsH  = ['','$u_H(e_H^*)$','$u_H(\\bar{e})$'] #% np.round(eRange[n],1)
+
+    if e<=eHmax:
 
         leftH = 0
         rightH = e
@@ -201,76 +188,34 @@ def run(*args):
         vertsH[1,0] = leftH
         vertsH[2,0] = rightH
         vertsH[3,0] = rightH
-
-    else:
-        ax1.set_xticks([eHstar,eHmax,eRange[n]])
-        ax1.set_yticks([0,uHstar,aBar*e - costH[n]])
-        xlabelsH  = ['$e_H^*$','$e_H^{max}$','$\\bar{e}$'] #% np.round(eRange[n],1)
-        ylabelsH  = ['','$u_H(e_H^*)$','$u_H(\\bar{e})$'] #% np.round(eRange[n],1)
-
-        leftH = 0
-        rightH = eHmax
-        vertsH[0,0] = leftH
-        vertsH[1,0] = leftH
-        vertsH[2,0] = rightH
-        vertsH[3,0] = rightH
-
 
     if e<e1:
         ax2.set_xticks([eRange[n]])
-        ax2.set_yticks([0,aBar*e - costL[n]])
+        ax2.set_yticks([0,aH*e - costL[n]])
         xlabelsL  = ['$\\bar{e}$'] #% np.round(eRange[n],1)
         ylabelsL  = ['','$u_L(\\bar{e})$'] #% np.round(eRange[n],1)
-
-        leftL = 0
-        rightL = e
-        vertsL[0,0] = leftL
-        vertsL[1,0] = leftL
-        vertsL[2,0] = rightL
-        vertsL[3,0] = rightL
-
-
     elif e1<=e<eLstar:
         ax2.set_xticks([eRange[n]])
-        ax2.set_yticks([0,aBar*e - costL[n]])
+        ax2.set_yticks([0,aH*e - costL[n]])
         xlabelsL  = ['$\\bar{e}$'] #% np.round(eRange[n],1)
         ylabelsL  = ['','$u_L(\\bar{e})$'] #% np.round(eRange[n],1)
-
-        leftL = 0
-        rightL = e
-        vertsL[0,0] = leftL
-        vertsL[1,0] = leftL
-        vertsL[2,0] = rightL
-        vertsL[3,0] = rightL
-
-
     elif eLstar<=e<eLmax:
         ax2.set_xticks([eLstar,eRange[n]])
-        ax2.set_yticks([0,uLstar,aBar*e - costL[n]])
+        ax2.set_yticks([0,uLstar,aH*e - costL[n]])
         xlabelsL  = ['$e_L^*$','$\\bar{e}$'] #% np.round(eRange[n],1)
         ylabelsL  = ['','$u_L(e_L^*)$','$u_L(\\bar{e})$'] #% np.round(eRange[n],1)
+    else:
+        ax2.set_xticks([eLstar,eLmax,eRange[n]])
+        ax2.set_yticks([0,uLstar,aH*e - costL[n]])
+        xlabelsL  = ['$e_L^*$','$\\bar{e}_{min}$','$\\bar{e}$'] #% np.round(eRange[n],1)
+        ylabelsL  = ['','$u_L(e_L^*)$','$u_L(\\bar{e})$'] #% np.round(eRange[n],1)
 
-        leftL = 0
+        leftL = eLmax
         rightL = e
         vertsL[0,0] = leftL
         vertsL[1,0] = leftL
         vertsL[2,0] = rightL
         vertsL[3,0] = rightL
-
-
-    else:
-        ax2.set_xticks([eLstar,eLmax,eRange[n]])
-        ax2.set_yticks([0,uLstar,aBar*e - costL[n]])
-        xlabelsL  = ['$e_L^*$','$e_L^{max}$','$\\bar{e}$'] #% np.round(eRange[n],1)
-        ylabelsL  = ['','$u_L(e_L^*)$','$u_L(\\bar{e})$'] #% np.round(eRange[n],1)
-
-        leftL = 0
-        rightL = eLmax
-        vertsL[0,0] = leftL
-        vertsL[1,0] = leftL
-        vertsL[2,0] = rightL
-        vertsL[3,0] = rightL
-    
 
     eRange1=eRange[0:n]
     utilH1 = utilH[:n]
@@ -295,9 +240,7 @@ def run(*args):
     ax1.set_yticklabels(ylabelsH,fontsize=20)
     ax2.set_xticklabels(xlabelsL,fontsize=20)
     ax2.set_yticklabels(ylabelsL,fontsize=20)
-    ax1.set_xlim(eMin, eMax)
     ax1.set_ylim(yMinH,yMaxH)
-    ax2.set_xlim(eMin, eMax)
     ax2.set_ylim(yMinL,yMaxL)
     lineH1.set_data(eRange1, utilH1)
     lineH2.set_data(eRange2, utilH2)
@@ -310,8 +253,8 @@ def run(*args):
     return lineH1,lineH2,lineH3,lineH4,lineL1,lineL2,lineL3,lineL4
 
 ani = animation.FuncAnimation(fig, run, eRange, blit=False,repeat=True,interval=1)
-ani.save('../video/signalingPooling.mp4',writer=writer)
+ani.save('../video/signaling_separating.mp4',writer=writer)
 
 # # Convert the mp4 video to ogg format
-# makeOgg = 'ffmpeg -i ../video/signalingPooling.mp4 -c:v libtheora -c:a libvorbis -q:v 8 -q:a 5 ../video/signalingPooling.ogv'
+# makeOgg = 'ffmpeg -i ../video/signaling_separating_low_type.mp4 -c:v libtheora -c:a libvorbis -q:v 6 -q:a 5 ../video/signalingSeparating.ogv'
 # subprocess.call(makeOgg,shell=True)

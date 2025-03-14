@@ -54,11 +54,11 @@ xdata, ydata = [], []
 ax.set_ylim(0, 3.5)
 ax.set_xlim(0, 16)
 ax.set_xlabel('Unemployment rate (%)')
-ax.set_ylabel('Inflation rate (%)')
-ax.set_title('US inflation and unemployment: BP-filtered data',fontsize=20)
+ax.set_ylabel('Vacancy rate (%)')
+ax.set_title('US Beveridge Curve',fontsize=20)
 
 # Placeholder for year text
-text = ax.text(12.125, 3.25, '',fontsize=18,horizontalalignment='right')
+text = ax.text(13.5, 3.125, '',fontsize=18,horizontalalignment='right')
 
 # Watermark
 ax.text(12.125,0.25, 'Created by Brian C. Jenkins',fontsize=11, color='black',alpha=0.5)
@@ -97,10 +97,10 @@ ani = animation.FuncAnimation(fig, update_plot, frames = n,fargs = (), blit=Fals
 
 # Save the animation as .mp4
 # ani.save('../video/US_Inflation_Unemployment_Monthly_BP_Filtered.ogv',fps=10,codec='libtheora')
-ani.save('../video/US_Beveridge_Curve.mp4',writer=writer)
+ani.save('../video/us_beveridge_curve.mp4',writer=writer)
 
 # Save the final image of the animation to use as the still image placeholder
-plt.savefig('../image/US_Beveridge_Curve .png',bbox_inches='tight',dpi=120)
+plt.savefig('../image/us_beveridge_curve.png',bbox_inches='tight',dpi=120)
 
 # # Convert the mp4 video to ogg format
 # makeOgg = 'ffmpeg -i ../video/US_Inflation_Unemployment_Monthly_BP_Filtered.mp4 -acodec libvorbis -ac 2 -ab 128k -ar 44100 -b:v 1800k  ../video/US_Inflation_Unemployment_Monthly_BP_Filtered.ogv'

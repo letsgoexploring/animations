@@ -161,9 +161,8 @@ def run(*args):
     return line1,line2,line3
 
 ani = animation.FuncAnimation(fig, run, eRange, blit=False,repeat=True,interval=1)
-ani.save('../video/signalingSeparatingHigh.mp4',writer=writer)
-plt.show()
+ani.save('../video/signaling_separating_high_type.mp4',writer=writer)
 
-# Convert the mp4 video to ogg format
-makeOgg = 'ffmpeg -i ../video/signalingSeparatingHigh.mp4 -c:v libtheora -c:a libvorbis -q:v 6 -q:a 5 ../video/signalingSeparatingHigh.ogv'
-subprocess.call(makeOgg,shell=True)
+# # Convert the mp4 video to ogg format
+# makeOgg = 'ffmpeg -i ../video/signaling_separating_high_type.mp4 -c:v libtheora -c:a libvorbis -q:v 6 -q:a 5 ../video/signalingSeparatingHigh.ogv'
+# subprocess.call(makeOgg,shell=True)

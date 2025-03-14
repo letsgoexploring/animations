@@ -105,10 +105,10 @@ ani = animation.FuncAnimation(fig, update_plot, frames = n,fargs = (), blit=Fals
 
 # Save the animation as .mp4
 # ani.save('../video/US_Inflation_Unemployment_Monthly_BP_Filtered.ogv',fps=10,codec='libtheora')
-ani.save('../video/US_Inflation_Unemployment_Monthly_BP_Filtered.mp4',writer=writer)
+ani.save('../video/us_inflation_unemployment_monthly_bp_filtered.mp4',writer=writer)
 
 # Save the final image of the animation to use as the still image placeholder
-plt.savefig('../image/US_Inflation_Unemployment_Monthly_BP_Filtered.png',bbox_inches='tight',dpi=120)
+plt.savefig('../image/us_inflation_unemployment_monthly_bp_filtered.png',bbox_inches='tight',dpi=120)
 
 
 # In[6]:

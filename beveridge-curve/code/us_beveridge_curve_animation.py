@@ -12,6 +12,7 @@ import matplotlib.cm as cm
 import numpy as np
 import pandas as pd
 import subprocess
+import os
 
 plt.style.use('classic')
 plt.rcParams['figure.facecolor'] = 'white'
@@ -74,6 +75,17 @@ def update_plot(i):
 
 
 # In[4]:
+
+
+# Make directories for output if they don't exist
+if not os.path.isdir('../video'):
+    os.mkdir('../video')
+
+if not os.path.isdir('../image'):
+    os.mkdir('../image')
+
+
+# In[5]:
 
 
 # Set up formatting for the movie files

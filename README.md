@@ -1,5 +1,5 @@
 # Animations
-Python programs for generating anaimations.
+Python programs for generating animations.
 
 ## US Beveridge Curve Animation
 Code to produce an animation of the US Bveridge Curve: https://vimeo.com/1065915184

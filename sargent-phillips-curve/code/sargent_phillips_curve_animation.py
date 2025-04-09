@@ -12,6 +12,7 @@ import matplotlib.cm as cm
 import numpy as np
 import fredpy as fp
 import subprocess
+import os
 
 plt.style.use('classic')
 plt.rcParams['figure.facecolor'] = 'white'
